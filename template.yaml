@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 20
+  Api:
+    # API Gateway regional endpoints
+    EndpointConfiguration: REGIONAL
+
+Resources:
+  ExternalLibraryLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: ExternalLibrary
+      ContentUri: build/external
+      CompatibleRuntimes:
+        - java8
+  SampleFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: java8
+      CodeUri: build/distributions/lambda-sample.zip
+      Handler: lambda.sample.functions.SampleFunction
+      Layers:
+        - !Ref ExternalLibraryLayer
+      #Environment:
+      #  Variables:
+      #    PARAM1: VALUE
+      Events:
+        GetSample:
+          Type: Api
+          Properties:
+            Path: /sample
+            Method: get
+        PostSample:
+          Type: Api
+          Properties:
+            Path: /sample
+            Method: post
