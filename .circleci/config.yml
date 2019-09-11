@@ -1,0 +1,10 @@
+version: 2.0
+
+jobs:
+  test:
+    docker:
+      - image: 8u181-jdk-stretch
+    steps:
+      - checkout
+      - run: java -version
+      - run: ./gradlew build -x test
