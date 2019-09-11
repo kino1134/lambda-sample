@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: java -version
-      - run: ./gradlew build -x test
+      - run: ./gradlew buildZip
 
 workflows:
   version: 2
