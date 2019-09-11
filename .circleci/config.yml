@@ -4,6 +4,7 @@ jobs:
   build:
     environment:
       _JAVA_OPTIONS: "-Xmx3g"
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false"
     docker:
       - image: openjdk:8u181-jdk-stretch
     steps:
