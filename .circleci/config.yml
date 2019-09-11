@@ -1,10 +1,19 @@
 version: 2.0
 
 jobs:
-  test:
+  build:
     docker:
       - image: 8u181-jdk-stretch
     steps:
       - checkout
       - run: java -version
       - run: ./gradlew build -x test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+#      - test:
+#          requires:
+#            - lint
